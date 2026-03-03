@@ -1,0 +1,105 @@
+@using System.Timers
+@implements IDisposable
+
+<section id="experience" class="mb-24">
+    <h2 class="text-3xl font-heading font-semibold mb-8 flex items-center gap-4">
+        <span class="w-8 h-1 bg-blue rounded-full"></span>
+        Experience
+    </h2>
+    <div class="flex flex-wrap justify-center gap-6 mb-10">
+        <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+            <div class="text-3xl font-bold text-blue dark:text-teal">@_years</div>
+            <div class="text-base text-slate-600 dark:text-slate-300">Years</div>
+        </div>
+        <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+            <div class="text-3xl font-bold text-blue dark:text-teal">@_months</div>
+            <div class="text-base text-slate-600 dark:text-slate-300">Months</div>
+        </div>
+        <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+            <div class="text-3xl font-bold text-blue dark:text-teal">@_days</div>
+            <div class="text-base text-slate-600 dark:text-slate-300">Days</div>
+        </div>
+        <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+            <div class="text-3xl font-bold text-blue dark:text-teal">@_hours</div>
+            <div class="text-base text-slate-600 dark:text-slate-300">Hours</div>
+        </div>
+        <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+            <div class="text-3xl font-bold text-blue dark:text-teal">@_minutes</div>
+            <div class="text-base text-slate-600 dark:text-slate-300">Minutes</div>
+        </div>
+        <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+            <div class="text-3xl font-bold text-blue dark:text-teal">@_seconds</div>
+            <div class="text-base text-slate-600 dark:text-slate-300">Seconds</div>
+        </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 justify-center">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 flex flex-col items-center">
+            <img src="Images/prosot-png.png" alt="Prosot India Pvt Ltd" class="w-16 h-16 object-contain mb-4" />
+            <h3 class="text-xl font-heading font-semibold mb-1">Prosot India Pvt Ltd</h3>
+            <span class="text-slate-500 dark:text-slate-400 mb-1">1st June 2019 – Present</span>
+            <span class="px-3 py-1 rounded-full bg-blue text-white text-sm mb-2">Current</span>
+            <span class="font-bold text-blue dark:text-teal">(@_yearsinprosot years)</span>
+        </div>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform duration-200 hover:shadow-xl hover:scale-105">
+            <img src="Images/v10x.png" alt="V10x Technologies" class="w-16 h-16 object-contain mb-4" />
+            <h3 class="text-xl font-heading font-semibold mb-1">V10x Technologies</h3>
+            <span class="text-slate-500 dark:text-slate-400 mb-1">25th May 2018 – 25th May 2019</span>
+            <span class="px-3 py-1 rounded-full bg-slate-400 text-white text-sm mb-2">Past</span>
+            <span class="font-bold text-blue dark:text-teal">(1 year)</span>
+        </div>
+    </div>
+</section>
+
+@code {
+    private int _years, _months, _days, _hours, _minutes, _seconds;
+    private string _yearsinprosot = "6+";
+    private Timer? _timer;
+
+    protected override void OnInitialized()
+    {
+        _timer = new Timer(1000);
+        _timer.Elapsed += OnTimerElapsed;
+        _timer.AutoReset = true;
+        _timer.Start();
+        CalculateExperience();
+    }
+
+    private void OnTimerElapsed(object? sender, ElapsedEventArgs e)
+    {
+        CalculateExperience();
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void CalculateExperience()
+    {
+        var startDate = new DateTime(2018, 5, 25);
+        var pauseDate = new DateTime(2019, 5, 25);
+        var resumeDate = new DateTime(2019, 7, 1);
+        var now = DateTime.Now;
+
+        TimeSpan difference;
+        if (now < pauseDate)
+            difference = now - startDate;
+        else
+            difference = (pauseDate - startDate) + (now - resumeDate);
+
+        _years = (int)(difference.TotalDays / 365);
+        var remainingDays = difference.TotalDays % 365;
+        _months = (int)(remainingDays / 30);
+        _days = (int)(remainingDays % 30);
+        _hours = difference.Hours;
+        _minutes = difference.Minutes;
+        _seconds = difference.Seconds;
+        _yearsinprosot = $"{_years - 1}.{_months}";
+    }
+
+    public void Dispose()
+    {
+        if (_timer != null)
+        {
+            _timer.Stop();
+            _timer.Elapsed -= OnTimerElapsed;
+            _timer.Dispose();
+        }
+    }
+}

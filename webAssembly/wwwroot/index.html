@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Aniket Shahane - Senior Full-Stack Engineer</title>
+    <title>Aniket Shahane - Tech Lead</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
-    <base href="/webAssembly/" />
+    <base href="/" />
     <link rel="preload" id="webassembly" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,11 +70,15 @@
 
 <body>
     <div id="app">
-        <svg class="loading-progress">
-            <circle r="40%" cx="50%" cy="50%" />
-            <circle r="40%" cx="50%" cy="50%" />
-        </svg>
-        <div class="loading-progress-text"></div>
+        <div class="loading-screen">
+            <div class="loading-brand">AS<span style="color:#2563EB">.</span></div>
+            <svg class="loading-progress">
+                <circle r="40%" cx="50%" cy="50%" />
+                <circle r="40%" cx="50%" cy="50%" />
+            </svg>
+            <div class="loading-progress-text"></div>
+            <div class="loading-name">Aniket Shahane</div>
+        </div>
     </div>
 
     <div id="blazor-error-ui">
