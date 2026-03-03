@@ -1,16 +1,13 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<NavMenu />
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+<main class="pt-24 pb-16 px-6 max-w-7xl mx-auto">
+    @Body
+</main>
+
+<footer class="border-t border-slate-200 dark:border-slate-800 py-8 text-center text-slate-500 dark:text-slate-400 text-sm">
+    <p>&copy; @DateTime.Now.Year Aniket Shahane. All rights reserved.</p>
+</footer>
+
+<ChatbotWidget />

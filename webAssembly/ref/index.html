@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Aniket Shahane - Tech Lead</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Configuration -->
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              heading: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            },
+            colors: {
+              navy: '#0F172A',
+              blue: '#2563EB',
+              teal: '#14B8A6',
+              'soft-gray': '#F8FAFC',
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Custom CSS -->
+    <style type="text/tailwindcss">
+      @layer base {
+        html {
+          scroll-behavior: smooth;
+        }
+        body {
+          @apply bg-soft-gray text-navy dark:bg-navy dark:text-soft-gray antialiased transition-colors duration-300;
+        }
+        h1, h2, h3, h4, h5, h6 {
+          @apply font-heading;
+        }
+      }
+      @layer utilities {
+        .animate-fade-in-up {
+          animation: fadeInUp 0.8s ease-out forwards;
+          opacity: 0;
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 top-0 transition-all duration-300 bg-soft-gray/90 dark:bg-navy/90 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="font-heading text-xl font-semibold tracking-tight">
+          AS<span class="text-blue">.</span>
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-medium">
+          <a href="#experience" class="hover:text-blue dark:hover:text-teal transition-colors">Experience</a>
+          <a href="#projects" class="hover:text-blue dark:hover:text-teal transition-colors">Projects</a>
+          <a href="#skills" class="hover:text-blue dark:hover:text-teal transition-colors">Skills</a>
+          <a href="#education" class="hover:text-blue dark:hover:text-teal transition-colors">Education</a>
+          <a href="#certifications" class="hover:text-blue dark:hover:text-teal transition-colors">Certifications</a>
+          <a href="#trainings" class="hover:text-blue dark:hover:text-teal transition-colors">Trainings</a>
+          <a href="#publications" class="hover:text-blue dark:hover:text-teal transition-colors">Publications</a>
+          <a href="#about" class="hover:text-blue dark:hover:text-teal transition-colors">About</a>
+        </div>
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle Dark Mode">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+          </svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+    <main class="pt-24 pb-16 px-6 max-w-7xl mx-auto space-y-32">
+      <!-- Hero, About, Expertise, Experience, Projects, Certifications, CTA sections go here, matching the ref/index.html layout and style -->
+      <!-- ...existing code... -->
+   
+    <script>
+      function initStaticSite() {
+        const yearSpan = document.getElementById('current-year');
+        if (yearSpan) {
+          yearSpan.textContent = new Date().getFullYear().toString();
+        }
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 20) {
+            navbar?.classList.add('shadow-sm', 'dark:shadow-slate-800');
+          } else {
+            navbar?.classList.remove('shadow-sm', 'dark:shadow-slate-800');
+          }
+        });
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const htmlElement = document.documentElement;
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          htmlElement.classList.add('dark');
+          lightIcon?.classList.remove('hidden');
+        } else {
+          htmlElement.classList.remove('dark');
+          darkIcon?.classList.remove('hidden');
+        }
+        themeToggleBtn?.addEventListener('click', () => {
+          darkIcon?.classList.toggle('hidden');
+          lightIcon?.classList.toggle('hidden');
+          if (htmlElement.classList.contains('dark')) {
+            htmlElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+          } else {
+            htmlElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+          }
+        });
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initStaticSite);
+      } else {
+        initStaticSite();
+      }
+    </script>
+  
+  <!-- Old nav removed, new nav above contains all menu items -->
+
+  <section id="hero" class="min-h-[80vh] flex items-center animate-fade-in-up" style="animation-delay: 0.1s;     margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));">
+    <div class="grid md:grid-cols-2 gap-12 items-center w-full">
+      <div class="space-y-6">
+        <h1 class="text-5xl md:text-7xl font-heading font-semibold leading-tight tracking-tight">
+          Aniket Shahane
+        </h1>
+        <h2 class="text-xl md:text-2xl text-blue dark:text-teal font-medium">
+          Senior Full-Stack Engineer | .NET & Angular Specialist
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
+          I design and build scalable, production-grade web applications that power real business outcomes.<br><br>
+          With 7+ years of experience delivering enterprise solutions, I specialize in architecting clean backend systems, intuitive frontends, and cloud-ready deployments.
+        </p>
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a href="#projects" class="px-6 py-3 bg-blue hover:bg-blue/90 text-white font-medium rounded-lg shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+            View Case Studies
+          </a>
+          <a href="#" class="px-6 py-3 bg-white dark:bg-slate-800 text-navy dark:text-white border border-slate-200 dark:border-slate-700 hover:border-blue dark:hover:border-teal font-medium rounded-lg shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+            Download Resume
+          </a>
+        </div>
+      </div>
+      <div class="relative hidden md:block">
+        <div class="absolute inset-0 bg-blue/10 dark:bg-teal/10 rounded-full blur-3xl transform scale-110"></div>
+        <div class="relative aspect-[4/5] max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl border border-slate-200/50 dark:border-slate-700/50 bg-slate-200 dark:bg-slate-800">
+          <img src="Images/aniket.png" alt="Aniket Shahane" class="object-cover w-full h-full opacity-90 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500" referrerpolicy="no-referrer">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="mb-24">
+    <h2 class="text-3xl font-heading font-semibold mb-8 flex items-center gap-4">
+      <span class="w-8 h-1 bg-blue rounded-full"></span>
+      Experience
+    </h2>
+    <div class="flex flex-wrap justify-center gap-6 mb-10">
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+        <div class="text-3xl font-bold text-blue dark:text-teal" id="years"></div>
+        <div class="text-base text-slate-600 dark:text-slate-300">Years</div>
+      </div>
+     
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+        <div class="text-3xl font-bold text-blue dark:text-teal" id="months"></div>
+        <div class="text-base text-slate-600 dark:text-slate-300">Months</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+        <div class="text-3xl font-bold text-blue dark:text-teal" id="days"></div>
+        <div class="text-base text-slate-600 dark:text-slate-300">Days</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+        <div class="text-3xl font-bold text-blue dark:text-teal" id="hours"></div>
+        <div class="text-base text-slate-600 dark:text-slate-300">Hours</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+        <div class="text-3xl font-bold text-blue dark:text-teal" id="minutes"></div>
+        <div class="text-base text-slate-600 dark:text-slate-300">Minutes</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg px-6 py-4 min-w-[90px]">
+        <div class="text-3xl font-bold text-blue dark:text-teal" id="seconds"></div>
+        <div class="text-base text-slate-600 dark:text-slate-300">Seconds</div>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 justify-center">
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 flex flex-col items-center">
+        <img src="Images/prosot-png.png" alt="Prosot India Pvt Ltd" class="w-16 h-16 object-contain mb-4">
+        <h3 class="text-xl font-heading font-semibold mb-1">Prosot India Pvt Ltd</h3>
+        <span class="text-slate-500 dark:text-slate-400 mb-1">1st June 2019 – Present</span>
+        <span class="px-3 py-1 rounded-full bg-blue text-white text-sm mb-2">Current</span>
+        <span class="font-bold text-blue dark:text-teal">(<span id="yearsinprosot">6+</span> years)</span>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform duration-200 hover:shadow-xl hover:scale-105">
+        <img src="Images/v10x.png" alt="V10x Technologies" class="w-16 h-16 object-contain mb-4">
+        <h3 class="text-xl font-heading font-semibold mb-1">V10x Technologies</h3>
+        <span class="text-slate-500 dark:text-slate-400 mb-1">25th May 2018 – 25th May 2019</span>
+        <span class="px-3 py-1 rounded-full bg-slate-400 text-white text-sm mb-2">Past</span>
+        <span class="font-bold text-blue dark:text-teal">(1 year)</span>
+      </div>
+    </div>
+  </section> 
+      <!-- Career Timeline & Promotions Section -->
+      <section id="career-timeline" class="mb-24">
+        <h2 class="text-3xl font-heading font-semibold mb-8 flex items-center gap-4">
+          <span class="w-8 h-1 bg-blue rounded-full"></span>
+          Career Timeline & Promotions
+        </h2>
+        <div class="relative pl-8">
+          <!-- Timeline vertical line -->
+          <div class="absolute left-4 top-0 h-full w-1 bg-blue dark:bg-teal rounded-full"></div>
+          <!-- Timeline items -->
+          <div class="space-y-12">
+            <!-- Technical Lead -->
+            <div class="relative flex items-start gap-6">
+              <div  style="left:-22px;" class="absolute left-0 top-2 w-4 h-4 bg-blue dark:bg-teal rounded-full border-2 border-white dark:border-navy"></div>
+              <div class="flex flex-col md:flex-row md:items-center gap-4 w-full">
+                <img src="Images/prosot-png.png" alt="Prosot India Pvt Ltd" class="w-16 h-16 object-contain rounded-xl shadow-md border border-blue dark:border-teal">
+                <div>
+                  <div class="text-lg font-heading font-semibold text-blue dark:text-teal">Technical Lead</div>
+                  <div class="text-sm text-slate-500 dark:text-slate-400">Aug 2024 – Present &bull; 1 yr 8 mos &bull; Remote</div>
+                  <div class="text-sm text-navy dark:text-soft-gray">Prosot India Pvt Ltd</div>
+                </div>
+              </div>
+            </div>
+            <!-- Senior Software Developer -->
+            <div class="relative flex items-start gap-6">
+              <div  style="left:-22px;" class="absolute left-0 top-2 w-4 h-4 bg-blue dark:bg-teal rounded-full border-2 border-white dark:border-navy"></div>
+              <div class="flex flex-col md:flex-row md:items-center gap-4 w-full">
+                <img src="Images/prosot-png.png" alt="Prosot India Pvt Ltd" class="w-16 h-16 object-contain rounded-xl shadow-md border border-blue dark:border-teal">
+                <div>
+                  <div class="text-lg font-heading font-semibold text-blue dark:text-teal">Senior Software Developer</div>
+                  <div class="text-sm text-slate-500 dark:text-slate-400">Aug 2020 – Nov 2024 &bull; 4 yrs 4 mos &bull; Remote</div>
+                  <div class="text-sm text-navy dark:text-soft-gray">Prosot India Pvt Ltd</div>
+                </div>
+              </div>
+            </div>
+            <!-- Software Developer -->
+            <div class="relative flex items-start gap-6">
+              <div  style="left:-22px;" class="absolute left-0 top-2 w-4 h-4 bg-blue dark:bg-teal rounded-full border-2 border-white dark:border-navy"></div>
+              <div class="flex flex-col md:flex-row md:items-center gap-4 w-full">
+                <img src="Images/prosot-png.png" alt="Prosot India Pvt Ltd" class="w-16 h-16 object-contain rounded-xl shadow-md border border-blue dark:border-teal">
+                <div>
+                  <div class="text-lg font-heading font-semibold text-blue dark:text-teal">Software Developer</div>
+                  <div class="text-sm text-slate-500 dark:text-slate-400">Jul 2019 – Aug 2020 &bull; 1 yr 2 mos &bull; Pune, Maharashtra, India</div>
+                  <div class="text-sm text-navy dark:text-soft-gray">Prosot India Pvt Ltd</div>
+                </div>
+              </div>
+            </div>
+            <!-- V10x Technologies -->
+            <div class="relative flex items-start gap-6">
+              <div  style="left:-22px;" class="absolute left-0 top-2 w-4 h-4 bg-blue dark:bg-teal rounded-full border-2 border-white dark:border-navy"></div>
+              <div class="flex flex-col md:flex-row md:items-center gap-4 w-full">
+                <img src="Images/v10x.png" alt="V10x Technologies" class="w-16 h-16 object-contain rounded-xl shadow-md border border-blue dark:border-teal">
+                <div>
+                  <div class="text-lg font-heading font-semibold text-blue dark:text-teal">Software Developer</div>
+                  <div class="text-sm text-slate-500 dark:text-slate-400">May 2018 – May 2019 &bull; 1 yr &bull; Remote</div>
+                  <div class="text-sm text-navy dark:text-soft-gray">V10x Technologies</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          </div>
+        </div>
+      </section>
+  <section id="projects" class="mb-24">
+    <h2 class="text-3xl font-heading font-semibold mb-8 flex items-center gap-4">
+      <span class="w-8 h-1 bg-blue rounded-full"></span>
+      Projects
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center">
+        <div class="flex justify-center items-center w-full h-40 bg-gradient-to-br from-blue/10 to-teal/10">
+          <img src="Images/arytic.png" alt="Arytic" class="object-contain h-32">
+        </div>
+        <div class="p-6 flex-1 flex items-center justify-center w-full">
+          <h3 class="text-lg font-heading font-semibold">Arytic</h3>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center transition-transform duration-200 hover:shadow-xl hover:scale-105">
+        <div class="flex justify-center items-center w-full h-40 bg-gradient-to-br from-blue/10 to-teal/10">
+          <img src="Images/clocker.png" alt="Clocr" class="object-contain h-32">
+        </div>
+        <div class="p-6 flex-1 flex items-center justify-center w-full">
+          <h3 class="text-lg font-heading font-semibold">Clocr</h3>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center">
+        <div class="flex justify-center items-center w-full h-40 bg-gradient-to-br from-blue/10 to-teal/10">
+          <img src="Images/mvs.png" alt="MVS360" class="object-contain h-32">
+        </div>
+        <div class="p-6 flex-1 flex items-center justify-center w-full">
+          <h3 class="text-lg font-heading font-semibold">MVS360</h3>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center">
+        <div class="flex justify-center items-center w-full h-40 bg-gradient-to-br from-blue/10 to-teal/10">
+          <img src="Images/dymax.png" alt="Dymax" class="object-contain h-32">
+        </div>
+        <div class="p-6 flex-1 flex items-center justify-center w-full">
+          <h3 class="text-lg font-heading font-semibold">Dymax</h3>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center">
+        <div class="flex justify-center items-center w-full h-40 bg-gradient-to-br from-blue/10 to-teal/10">
+          <img src="Images/newIndi.png" alt="New Indi" class="object-contain h-32">
+        </div>
+        <div class="p-6 flex-1 flex items-center justify-center w-full">
+          <h3 class="text-lg font-heading font-semibold">New Indi</h3>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center">
+        <div class="flex justify-center items-center w-full h-40 bg-gradient-to-br from-blue/10 to-teal/10">
+          <img src="Images/Tel.png" alt="Tokyo Electron" class="object-contain h-32">
+        </div>
+        <div class="p-6 flex-1 flex items-center justify-center w-full">
+          <h3 class="text-lg font-heading font-semibold">Tokyo Electron</h3>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center">
+        <div class="flex justify-center items-center w-full h-40 bg-gradient-to-br from-blue/10 to-teal/10">
+          <img src="Images/dfw.png" alt="DFW Land" class="object-contain h-20">
+        </div>
+        <div class="p-6 flex-1 flex items-center justify-center w-full">
+          <h3 class="text-lg font-heading font-semibold">DFW Land</h3>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center">
+        <div class="flex justify-center items-center w-full h-40 bg-gradient-to-br from-blue/10 to-teal/10">
+          <img src="Images/mtmotel.png" alt="My Motel" class="object-contain h-20">
+        </div>
+        <div class="p-6 flex-1 flex items-center justify-center w-full">
+          <h3 class="text-lg font-heading font-semibold">My Motel</h3>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center">
+        <div class="flex justify-center items-center w-full h-40 bg-gradient-to-br from-blue/10 to-teal/10">
+          <img src="Images/halo.png" alt="Halo Program" class="object-contain h-20">
+        </div>
+        <div class="p-6 flex-1 flex items-center justify-center w-full">
+          <h3 class="text-lg font-heading font-semibold">Halo Program</h3>
+        </div>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden flex flex-col items-center">
+        <div class="flex justify-center items-center w-full h-40 bg-gradient-to-br from-blue/10 to-teal/10">
+          <img src="Images/AutoCodeGen.png" alt="Auto Code Gen" class="object-contain h-32">
+        </div>
+        <div class="p-6 flex-1 flex items-center justify-center w-full">
+          <h3 class="text-lg font-heading font-semibold">Auto Code Gen</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="skills" class="mb-24 skills-section">
+    <h2 class="text-3xl font-heading font-semibold mb-8 flex items-center gap-4">
+      <span class="w-8 h-1 bg-blue rounded-full"></span>
+      Skills
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 justify-center">
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/C_Programming_Language.svg" alt="C" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">C</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/c++.png" alt="C++" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">C++</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/Blazor.png" alt="Blazor" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">Blazor</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/CSharp.png" alt="C#" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">C#</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/NET_Core_Logo.svg.png" alt=".Net Core" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">.Net Core</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/angular.png" alt="Angular" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">Angular</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/azure.png" alt="Azure" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">Azure</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/R.png" alt="R" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">R</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/python.svg" alt="Python" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">Python</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/mysql.png" alt="MySQL" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">MySQL</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/sql.svg" alt="SQL" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">SQL</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/mongo.png" alt="MongoDB" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">MongoDB</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/rest.png" alt="REST web services" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">REST</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/git.png" alt="Git" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">Git</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/html.png" alt="HTML" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">HTML</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/css.svg" alt="CSS" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">CSS</div>
+      </div>
+      <div class="flex flex-col items-center bg-gradient-to-br from-blue/10 to-teal/10 rounded-xl shadow-lg p-4">
+        <img src="Images/bootstrap.svg" alt="Bootstrap" class="mb-2 w-14 h-14 object-contain">
+        <div class="font-heading font-semibold text-blue dark:text-teal">Bootstrap</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="mb-24">
+    <h2 class="text-3xl font-heading font-semibold mb-12 flex items-center gap-4">
+      <span class="w-8 h-1 bg-blue rounded-full"></span>
+      Education
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="p-6 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50 flex flex-col justify-between items-center hover:shadow-md transition-shadow text-center">
+        <div class="mb-3">
+          <span class="fa fa-graduation-cap fa-2x text-blue"></span>
+        </div>
+        <h4 class="font-heading font-semibold text-navy dark:text-white">Master of Technology</h4>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Computer Science and Engineering</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Vishwakarma Institute of Technology (Autonomous)</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Savitribai Phule Pune University</div>
+        <span class="text-sm font-mono text-slate-400 bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded mt-2">2019</span>
+        <div class="font-bold text-blue-600 dark:text-teal mt-2">CGPA 8.6</div>
+      </div>
+      <div class="p-6 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50 flex flex-col justify-between items-center hover:shadow-md transition-shadow text-center">
+        <div class="mb-3">
+          <span class="fa fa-university fa-2x text-blue"></span>
+        </div>
+        <h4 class="font-heading font-semibold text-navy dark:text-white">Bachelor of Engineering</h4>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Information Technology</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Jayawantrao Sawant College of Engineering</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Savitribai Phule Pune University</div>
+        <span class="text-sm font-mono text-slate-400 bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded mt-2">2016</span>
+        <div class="font-bold text-blue-600 dark:text-teal mt-2">67.93%</div>
+      </div>
+      <div class="p-6 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50 flex flex-col justify-between items-center hover:shadow-md transition-shadow text-center">
+        <div class="mb-3">
+          <span class="fa fa-certificate fa-2x text-blue"></span>
+        </div>
+        <h4 class="font-heading font-semibold text-navy dark:text-white">Diploma</h4>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Computer Technology</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">P. Dr. V. V. P. Institute of Technology & Engineering (Polytechnic)</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Maharashtra State Board of Technical Education</div>
+        <span class="text-sm font-mono text-slate-400 bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded mt-2">2013</span>
+        <div class="font-bold text-blue-600 dark:text-teal mt-2">68.90%</div>
+      </div>
+      <div class="p-6 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50 flex flex-col justify-between items-center hover:shadow-md transition-shadow text-center">
+        <div class="mb-3">
+          <span class="fa fa-book fa-2x text-blue"></span>
+        </div>
+        <h4 class="font-heading font-semibold text-navy dark:text-white">S.S.C</h4>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Secondary School Certificate</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Shri Ambika Vidyalaya</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Kedgaon Maharashtra State Board of S.S.C</div>
+        <span class="text-sm font-mono text-slate-400 bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded mt-2">2009</span>
+        <div class="font-bold text-blue-600 dark:text-teal mt-2">75.69%</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications" class="mb-24">
+    <h2 class="text-3xl font-heading font-semibold mb-8 flex items-center gap-4">
+      <span class="w-8 h-1 bg-blue rounded-full"></span>
+      Certifications
+    </h2>
+    <ul class="space-y-4">
+      <li class="bg-white dark:bg-slate-800 rounded-xl shadow-lg px-6 py-4 font-medium">ORACLE Core Java Certification - Oracle Inc. (NIIT, Pune)</li>
+      <li class="bg-white dark:bg-slate-800 rounded-xl shadow-lg px-6 py-4 font-medium">MongoDB Essentials - Understand the Basics of MongoDB (Online - www.udemy.com)</li>
+      <li class="bg-white dark:bg-slate-800 rounded-xl shadow-lg px-6 py-4 font-medium">Object Oriented Programming (Online - www.udemy.com)</li>
+      <li class="bg-white dark:bg-slate-800 rounded-xl shadow-lg px-6 py-4 font-medium">Object Oriented Programming in Java (Online - www.udemy.com)</li>
+      <li class="bg-white dark:bg-slate-800 rounded-xl shadow-lg px-6 py-4 font-medium">HTML5 and CSS3 Fundamentals (Online - www.udemy.com)</li>
+      <li class="bg-white dark:bg-slate-800 rounded-xl shadow-lg px-6 py-4 font-medium">Learn Angular 5 from Scratch (Online - www.udemy.com)</li>
+    </ul>
+  </section>
+
+  <section id="trainings" class="mb-24">
+    <h2 class="text-3xl font-heading font-semibold mb-8 flex items-center gap-4">
+      <span class="w-8 h-1 bg-blue rounded-full"></span>
+      Trainings
+    </h2>
+    <ul class="space-y-4">
+      <li class="bg-white dark:bg-slate-800 rounded-xl shadow-lg px-6 py-4 font-medium">Emerging trends in IT – Java, Servlet, PHP, MongoDB, Hadoop</li>
+      <li class="bg-white dark:bg-slate-800 rounded-xl shadow-lg px-6 py-4 font-medium">Advance techniques to write and present research paper</li>
+    </ul>
+    </section>
+
+    <section id="publications" class="mb-24">
+      <h2 class="text-3xl font-heading font-semibold mb-8 flex items-center gap-4">
+        <span class="w-8 h-1 bg-blue rounded-full"></span>
+        Publications
+      </h2>
+      <ul class="space-y-4">
+        <li class="bg-white dark:bg-slate-800 rounded-xl shadow-lg px-6 py-4 font-medium">Research Paper on Meta Search Engine for Traveler (IJRISE)</li>
+        <li class="bg-white dark:bg-slate-800 rounded-xl shadow-lg px-6 py-4 font-medium">Implementation Paper on Meta Search Engine for Traveler (ICRTCIT)</li>
+      </ul>
+    </section>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Experience Timer Script
+    var startDate = new Date("May 25, 2018").getTime();
+    var pauseDate = new Date("May 25, 2019").getTime();
+    var resumeDate = new Date("Jul 1, 2019").getTime();
+    setInterval(function () {
+      var now = new Date().getTime();
+        var difference;
+      if (now < pauseDate) {
+        difference = now - startDate;
+      } else {
+      difference = (pauseDate - startDate) + (now - resumeDate);
+      }
+      var years = Math.floor(difference / (1000 * 60 * 60 * 24 * 365));
+      var months = Math.floor((difference % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+      var days = Math.floor((difference % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      document.getElementById("years").textContent = years;
+      document.getElementById("yearsinprosot").textContent = years-1+"."+months;
+      document.getElementById("months").textContent = months;
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }, 1000);
+  
+    // Custom animated scroll for navbar links
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animated scroll and highlight
+      document.querySelectorAll('.navbar-nav .nav-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          var href = link.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            var target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              var top = target.getBoundingClientRect().top + window.pageYOffset - 80;
+              window.scrollTo({
+                top: top,
+                behavior: 'smooth'
+              });
+              target.classList.add('section-highlight');
+              setTimeout(function() {
+                target.classList.remove('section-highlight');
+              }, 700);
+            }
+          }
+        });
+      });
+      
+      // Smooth scroll animation function
+      function animateScroll(start, end, duration) {
+        var startTime = null;
+        function easeInOutExpo(t, b, c, d) {
+          if (t === 0) return b;
+          if (t === d) return b + c;
+          if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+          return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+        }
+        function scrollStep(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var elapsed = timestamp - startTime;
+          var next = easeInOutExpo(elapsed, start, end - start, duration);
+          window.scrollTo(0, next);
+          if (elapsed < duration) {
+            window.requestAnimationFrame(scrollStep);
+          } else {
+            window.scrollTo(0, end);
+          }
+        }
+        window.requestAnimationFrame(scrollStep);
+      }
+
+      // Card hover effect: pop and subtle glow
+      document.querySelectorAll('.card').forEach(function(card) {
+        card.addEventListener('mouseenter', function() {
+          card.style.transform = 'scale(1.03)';
+          card.style.boxShadow = '0 4px 16px 0 #facf0f';
+        });
+        card.addEventListener('mouseleave', function() {
+          card.style.transform = '';
+          card.style.boxShadow = '';
+        });
+      });
+
+      // Skills: show tooltip on hover
+      document.querySelectorAll('.skills-section .col-md-2, .skills-section .col-6').forEach(function(skill) {
+        skill.addEventListener('mouseenter', function() {
+          var name = skill.querySelector('div');
+          if (name) {
+            name.classList.add('skill-tooltip');
+          }
+        });
+        skill.addEventListener('mouseleave', function() {
+          var name = skill.querySelector('div');
+          if (name) {
+            name.classList.remove('skill-tooltip');
+          }
+        });
+      });
+
+      // About section: reveal contact info on click
+      var aboutSection = document.querySelector('.about-section');
+      if (aboutSection) {
+        var contactList = aboutSection.querySelector('.list-unstyled');
+        var revealBtn = document.createElement('button');
+        revealBtn.textContent = 'Show Contact Info';
+        revealBtn.className = 'btn btn-warning mb-3';
+        contactList.style.display = 'none';
+        aboutSection.insertBefore(revealBtn, contactList);
+        revealBtn.addEventListener('click', function() {
+          contactList.style.display = 'block';
+          revealBtn.style.display = 'none';
+        });
+      }
+    });
+  </script>
+  <style>
+    .section-highlight {
+      animation: highlightSection 0.7s;
+    }
+    @keyframes highlightSection {
+      0% { box-shadow: 0 0 0 0 #facf0f; }
+      40% { box-shadow: 0 0 32px 8px #facf0f; }
+      100% { box-shadow: 0 0 0 0 #facf0f; }
+    }
+    .skill-tooltip {
+      background: #facf0f;
+      color: #232526 !important;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px #facf0f;
+      padding: 0.2rem 0.7rem;
+      font-size: 1.15rem !important;
+      transition: background 0.2s, color 0.2s;
+    }
+    .contact-gradient-btn {
+      background: linear-gradient(90deg,#facf0f 0%,#ffe985 100%) !important;
+      color: #232526 !important;
+      border: none !important;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.12);
+      transition: background 0.2s, color 0.2s;
+    }
+    .contact-gradient-btn:hover, .contact-gradient-btn:focus {
+      background: linear-gradient(90deg,#ffe985 0%,#facf0f 100%) !important;
+      color: #232526 !important;
+    }
+    .tech-lead-gradient {
+      background: linear-gradient(90deg,#facf0f 0%,#ffe985 100%) !important;
+      color: #232526 !important;
+      font-weight: 600;
+      border: none !important;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.12);
+    }
+  </style> 
+      <!-- 7. Final CTA Section -->
+      <section class="py-20 text-center animate-fade-in-up" style="animation-delay: 0.7s">
+        <div class="max-w-3xl mx-auto bg-navy dark:bg-slate-800 rounded-3xl p-12 shadow-xl border border-slate-800 dark:border-slate-700 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-blue/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-teal/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+          <div class="relative z-10">
+            <h2 class="text-3xl md:text-4xl font-heading font-semibold text-white mb-6">
+              Let’s Build Something Scalable
+            </h2>
+            <p class="text-lg text-slate-300 mb-10 max-w-xl mx-auto">
+              If you're looking for a senior engineer who understands both architecture and execution, let’s connect.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+              <a href="mailto:mr.aniketshahane@gmail.com" class="px-8 py-4 bg-blue hover:bg-blue/90 text-white font-medium rounded-lg shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2" style="text-decoration:none;">
+                <span class="fa fa-envelope"></span> Contact Me
+              </a>
+              <a href="https://forms.gle/2Qw6QwQwQwQwQwQw7" target="_blank" class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium rounded-lg backdrop-blur-sm hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2" style="text-decoration:none;">
+                <span class="fa fa-calendar"></span> Schedule a Call
+              </a>
+            </div>
+            <div class="flex flex-col sm:flex-row justify-center gap-6 mt-8 text-white text-lg">
+              <div class="flex items-center gap-2">
+                <span class="fa fa-envelope"></span>
+                <a href="mailto:mr.aniketshahane@gmail.com" class="hover:underline text-white">mr.aniketshahane@gmail.com</a>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="fa fa-phone"></span>
+                <a href="tel:+919890123456" class="hover:underline text-white">+91 9890 123456</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="border-t border-slate-200 dark:border-slate-800 py-8 text-center text-slate-500 dark:text-slate-400 text-sm">
+      <p>© <span id="current-year"></span> Aniket Shahane. All rights reserved.</p>
+    </footer>
+    <!-- Scripts -->
+    <!-- Chatbot Widget Start -->
+    <div id="chatbot-widget" style="position: fixed; bottom: 32px; right: 32px; z-index: 9999;">
+      <button id="chatbot-toggle" style="background: linear-gradient(90deg,#2563EB 0%,#14B8A6 100%); color: #fff; border: none; border-radius: 50%; width: 56px; height: 56px; box-shadow: 0 4px 16px 0 #2563EB44; font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+        💬
+      </button>
+      <div id="chatbot-window" style="display: none; width: 340px; max-width: 90vw; height: 420px; background: #fff; border-radius: 1.25rem; box-shadow: 0 8px 32px 0 #23252633; overflow: hidden; flex-direction: column; position: absolute; bottom: 70px; right: 0; border: 1px solid #e5e7eb;">
+        <div style="background: linear-gradient(90deg,#2563EB 0%,#14B8A6 100%); color: #fff; padding: 1rem; font-weight: 600; font-family: 'Poppins',sans-serif;">Chat with Aniket's Bot</div>
+        <div id="chatbot-messages" style="flex: 1; padding: 1rem; overflow-y: auto; background: #f8fafc; font-size: 1rem;"></div>
+        <form id="chatbot-form" style="display: flex; border-top: 1px solid #e5e7eb;">
+          <input id="chatbot-input" type="text" placeholder="Type your message..." autocomplete="off" style="flex: 1; border: none; padding: 0.75rem; font-size: 1rem; outline: none; background: #fff; border-radius: 0 0 0 1.25rem;" />
+          <button type="submit" style="background: #2563EB; color: #fff; border: none; padding: 0 1.25rem; font-size: 1.2rem; border-radius: 0 0 1.25rem 0; cursor: pointer;">➤</button>
+        </form>
+      </div>
+    </div>
+    <!-- Chatbot Widget End -->
+    <script>
+      // Chatbot widget logic
+      const chatbotToggle = document.getElementById('chatbot-toggle');
+      const chatbotWindow = document.getElementById('chatbot-window');
+      const chatbotForm = document.getElementById('chatbot-form');
+      const chatbotInput = document.getElementById('chatbot-input');
+      const chatbotMessages = document.getElementById('chatbot-messages');
+      chatbotToggle.addEventListener('click', () => {
+        chatbotWindow.style.display = chatbotWindow.style.display === 'none' ? 'flex' : 'none';
+      });
+      function appendMessage(sender, text) {
+        const msg = document.createElement('div');
+        msg.style.marginBottom = '0.75rem';
+        msg.innerHTML = `<span style="font-weight:600;color:${sender==='You'?'#2563EB':'#14B8A6'};">${sender}:</span> <span>${text}</span>`;
+        chatbotMessages.appendChild(msg);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+      chatbotForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const userMsg = chatbotInput.value.trim();
+        if (!userMsg) return;
+        appendMessage('You', userMsg);
+        chatbotInput.value = '';
+        setTimeout(() => {
+          // Simple bot logic (replace with real API for advanced bot)
+          let reply = '';
+          if (/hello|hi|hey/i.test(userMsg)) reply = 'Hello! How can I help you today?';
+          else if (/resume|cv/i.test(userMsg)) reply = 'You can download my resume from the top of this page.';
+          else if (/contact|email|phone/i.test(userMsg)) reply = 'You can contact me at mr.aniketshahane@gmail.com or +91 9890 123456.';
+          else if (/project|work|case/i.test(userMsg)) reply = 'Check out my projects section above for case studies and details!';
+          else if (/skills|tech|stack/i.test(userMsg)) reply = 'I work with .NET, Angular, C#, Python, Azure, and more!';
+          else if (/education|degree|college/i.test(userMsg)) reply = 'I have an M.Tech in Computer Science and a B.E. in IT.';
+          else if (/certification|course/i.test(userMsg)) reply = 'See my certifications section for details on my courses and achievements.';
+          else reply = "I'm a simple bot. Please ask about my experience, skills, projects, or contact info!";
+          appendMessage('Bot', reply);
+        }, 600);
+      });
+    </script>
+  </body>
+</html>

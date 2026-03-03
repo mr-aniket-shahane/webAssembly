@@ -1,0 +1,80 @@
+@inject IJSRuntime JS
+
+<div style="position: fixed; bottom: 32px; right: 32px; z-index: 9999;">
+    <button @onclick="ToggleChatWindow" style="background: linear-gradient(90deg,#2563EB 0%,#14B8A6 100%); color: #fff; border: none; border-radius: 50%; width: 56px; height: 56px; box-shadow: 0 4px 16px 0 #2563EB44; font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+        ??
+    </button>
+    @if (_isOpen)
+    {
+        <div style="width: 340px; max-width: 90vw; height: 420px; background: #fff; border-radius: 1.25rem; box-shadow: 0 8px 32px 0 #23252633; overflow: hidden; display: flex; flex-direction: column; position: absolute; bottom: 70px; right: 0; border: 1px solid #e5e7eb;">
+            <div style="background: linear-gradient(90deg,#2563EB 0%,#14B8A6 100%); color: #fff; padding: 1rem; font-weight: 600; font-family: 'Poppins',sans-serif;">Chat with Aniket's Bot</div>
+            <div id="chatbot-messages" style="flex: 1; padding: 1rem; overflow-y: auto; background: #f8fafc; font-size: 1rem;">
+                @foreach (var msg in _messages)
+                {
+                    <div style="margin-bottom: 0.75rem;">
+                        <span style="font-weight:600;color:@(msg.IsUser ? "#2563EB" : "#14B8A6");">@(msg.IsUser ? "You" : "Bot"):</span>
+                        <span> @msg.Text</span>
+                    </div>
+                }
+            </div>
+            <form @onsubmit="SendMessage" @onsubmit:preventDefault style="display: flex; border-top: 1px solid #e5e7eb;">
+                <input @bind="_inputText" type="text" placeholder="Type your message..." autocomplete="off" style="flex: 1; border: none; padding: 0.75rem; font-size: 1rem; outline: none; background: #fff; border-radius: 0 0 0 1.25rem;" />
+                <button type="submit" style="background: #2563EB; color: #fff; border: none; padding: 0 1.25rem; font-size: 1.2rem; border-radius: 0 0 1.25rem 0; cursor: pointer;">?</button>
+            </form>
+        </div>
+    }
+</div>
+
+@code {
+    private bool _isOpen;
+    private string _inputText = "";
+    private readonly List<ChatMessage> _messages = new();
+
+    private void ToggleChatWindow()
+    {
+        _isOpen = !_isOpen;
+    }
+
+    private async Task SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(_inputText)) return;
+
+        var userMsg = _inputText.Trim();
+        _messages.Add(new ChatMessage { Text = userMsg, IsUser = true });
+        _inputText = "";
+
+        await Task.Delay(600);
+
+        var reply = GetBotReply(userMsg);
+        _messages.Add(new ChatMessage { Text = reply, IsUser = false });
+
+        StateHasChanged();
+        await JS.InvokeVoidAsync("siteInterop.scrollToBottom", "chatbot-messages");
+    }
+
+    private static string GetBotReply(string userMsg)
+    {
+        var msg = userMsg.ToLowerInvariant();
+        if (msg.Contains("hello") || msg.Contains("hi") || msg.Contains("hey"))
+            return "Hello! How can I help you today?";
+        if (msg.Contains("resume") || msg.Contains("cv"))
+            return "You can download my resume from the top of this page.";
+        if (msg.Contains("contact") || msg.Contains("email") || msg.Contains("phone"))
+            return "You can contact me at mr.aniketshahane@gmail.com or +91 9890 123456.";
+        if (msg.Contains("project") || msg.Contains("work") || msg.Contains("case"))
+            return "Check out my projects section above for case studies and details!";
+        if (msg.Contains("skills") || msg.Contains("tech") || msg.Contains("stack"))
+            return "I work with .NET, Angular, C#, Python, Azure, and more!";
+        if (msg.Contains("education") || msg.Contains("degree") || msg.Contains("college"))
+            return "I have an M.Tech in Computer Science and a B.E. in IT.";
+        if (msg.Contains("certification") || msg.Contains("course"))
+            return "See my certifications section for details on my courses and achievements.";
+        return "I'm a simple bot. Please ask about my experience, skills, projects, or contact info!";
+    }
+
+    private class ChatMessage
+    {
+        public string Text { get; set; } = "";
+        public bool IsUser { get; set; }
+    }
+}
